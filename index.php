@@ -7,11 +7,16 @@
 
 <?php
 $query="autism";
-$PMID = get_PMID($query);
+$PMID = get_PMIDs($query);
+#for ($i=0; $i<count($PMID); $i++) {
+#	echo $i . ": " . $PMID[$i] . "<br />";
+#}
 
-for ($i=0; $i<count($PMID); $i++) {
-	echo $i . ": " . $PMID[$i] . "<br />";
-}
+$this_PMID = $PMID[2];
+
+get_summary($this_PMID);
+
+
 ?>
 
 </BODY>
