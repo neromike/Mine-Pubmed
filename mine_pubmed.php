@@ -30,43 +30,76 @@ function get_PMIDs ($query) {
 }
 function get_summary ($this_PMID) {
 	#input: a single PMID
-	#output: an array of the pertinent information
+	#output: an array of the pertinent information	
 	$base_URL = 'http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi';
 	$query_ID = $base_URL . '?db=pubmed&id=' . $this_PMID;
-	echo '<a href="' . $query_ID . '" target="blank">' . $query_ID . '</a><br />';
+	#echo '<a href="' . $query_ID . '" target="blank">' . $query_ID . '</a><br />';
 	$xml = simplexml_load_file( $query_ID );
 	$info = $xml->body->pre;
 	$info = str_replace("\t","", $info);
-	
-	echo "<br><br>";
+	#echo $info . "<br><br>";
 	
 	#Get author names
 	$start = strpos($info, "names ml") + 21;
 	$len = strpos(substr($info, $start), "}");
 	$authors = explode(",", substr($info, $start, $len));
-	echo "<Strong>authors</strong>:";
-	print_r($authors);
-	echo "<br>";
 	
 	#Get the title
-	#echo "<br><br>" . $info . "<br><br>";
 	$start = strpos($info, "cit { title { name");
 	$start = strpos( substr($info, $start), '"') + 1;
 	$len = strpos(substr($info, $start), '"');
 	#echo "start : " . $start . "<br>";
 	#echo "len : " . $len . "<br>";
 	$title = substr($info, $start, $len);
-	echo "<strong>title</strong>:" . $title . "<br>";
 
 	#Get the abstract
-	#echo "<br><br>" . $info . "<br><br>";
 	$start = strpos($info, "abstract");
 	$start = $start + strpos( substr($info, $start), '"') + 1;
 	$len = strpos(substr($info, $start), '"');
 	#echo "start : " . $start . "<br>";
 	#echo "len : " . $len . "<br>";
 	$abstract = substr($info, $start, $len);
-	echo "<strong>abstract</strong>:" . $abstract . "<br>";
+	
+	#Get the received date
+	$start = strpos($info, "pubstatus received");
+		#get the year
+		$start = $start + strpos( substr($info, $start), 'year') + 5;
+		$len = strpos(substr($info, $start), ",");
+		$year = substr($info, $start, $len);
+		#get the month
+		$start = $start + strpos( substr($info, $start), 'month') + 6;
+		$len = strpos(substr($info, $start), ",");
+		$month = substr($info, $start, $len);
+		#get the day
+		$start = $start + strpos( substr($info, $start), 'day') + 4;
+		$len = strpos(substr($info, $start), "}");
+		$day = substr($info, $start, $len);
+	$date_rec = array($year, $month, $day);
+	
+	#Get the received date
+	$start = strpos($info, "pubstatus accepted");
+		#get the year
+		$start = $start + strpos( substr($info, $start), 'year') + 5;
+		$len = strpos(substr($info, $start), ",");
+		$year = substr($info, $start, $len);
+		#get the month
+		$start = $start + strpos( substr($info, $start), 'month') + 6;
+		$len = strpos(substr($info, $start), ",");
+		$month = substr($info, $start, $len);
+		#get the day
+		$start = $start + strpos( substr($info, $start), 'day') + 4;
+		$len = strpos(substr($info, $start), "}");
+		$day = substr($info, $start, $len);
+	$date_acc = array($year, $month, $day);
+	
+	#Get the journal
+	$start = strpos($info, "journal");
+	$start = $start + strpos( substr($info, $start), "name");
+	$start = $start + strpos( substr($info, $start), '"') + 1;
+	$len = strpos( substr($info, $start), '"');
+	$journal = substr($info, $start, $len);
+	
+	return array($authors, $title, $abstract, $date_rec, $date_acc, $journal);
 	
 }
 ?>

@@ -12,9 +12,28 @@ $PMID = get_PMIDs($query);
 #	echo $i . ": " . $PMID[$i] . "<br />";
 #}
 
-$this_PMID = $PMID[2];
+$this_PMID = $PMID[41];
 
-get_summary($this_PMID);
+list($authors, $title, $abstract, $date_rec, $date_acc, $journal) = get_summary($this_PMID);
+
+
+echo "<Strong>authors</strong>:";
+print_r($authors);
+echo "<br />";
+
+echo "<strong>title</strong>:" . $title . "<br>";
+
+echo "<strong>abstract</strong>:" . $abstract . "<br>";
+
+echo "<strong>date (received):</strong>";
+print_r($date_rec);
+echo "<br />";
+
+echo "<strong>date (accepted):</strong>";
+print_r($date_acc);
+echo "<br />";
+
+echo "<strong>journal:</strong>" . $journal . "<br />";
 
 
 ?>
