@@ -18,7 +18,7 @@ function get_PMIDs ($query, $return_count=false) {
 			$count = $xml->Count;
 			$max = ceil($count / $ret_max);
 			#echo "<Strong>Total number of matching publications</strong>: " . $count . "<br />";
-			#$ret_start = $max; #this skips to the last screen only
+			#$ret_start = $max; #this skips to the last screen only, used for debugging
 			if ($return_count) { return $count; }
 		}
 		
