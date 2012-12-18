@@ -48,7 +48,7 @@ function get_PMIDs ($query, $return_count=false) {
 function get_summary ($this_PMID) {
 	#input: a single PMID
 	#output: an array of the pertinent information
-	$debug = True;
+	$debug = False;
 	$base_URL = 'http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi';
 	$query_ID = $base_URL . '?db=pubmed&id=' . $this_PMID . "&retmode=xml";
 	if ($debug) {

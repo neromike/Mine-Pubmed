@@ -37,7 +37,7 @@ if (isset($_GET['date_to'])) { $date_to = $_GET['date_to']; } else { $date_to = 
 
 #The query form
 echo '<form action="index.php" method="get">';
-
+	
 	#query
 	echo '<input name="query" size="100" value="';
 	if ($query == "*") { echo $query_default; } else { echo $query; }
@@ -50,7 +50,7 @@ echo '<form action="index.php" method="get">';
 	if ($date_restrict == "on") { echo " checked='yes' "; }
 	echo ' onClick="restrict_date(this)" /></td>';
 	echo '<td id="restrict_date_range">From <input class="datepicker" name="date_from" value="' . $date_from . '"/> to <input class="datepicker" name="date_to" value="' . $date_to . '"/></td>';
-	echo "</tr><tr>";
+	echo "</tr>";
 	
 	echo '</table>';
 	

@@ -6,13 +6,24 @@ There are two functions that this makes available:
 
 1) function get_PMIDs ($query, $return_count=false)
 For a given query, this function will return the total number of publications and an array of the PMIDs of the matching publications. You can get both of these returned like this:
-    list($PMID, $count) = get_PMIDs($query);
+	list($PMID, $count) = get_PMIDs($query);
 
 You can retrieve just the second count by passing True to the second optional parameter:
-    $count = get_PMIDs($query, true);
+	$count = get_PMIDs($query, true);
 
 
 2) function get_summary ($this_PMID)
 This function takes a single PMID and returns various parameters of the publication. You can get all of the returned parameters like this:
 
-     list($authors, $title, $abstract, $date_pubmed, $date_rec, $date_acc, $journal, $affil) = get_summary( $this_PMID );
+	list($authors, $title, $abstract, $date_pubmed, $date_rec, $date_acc, $journal, $affil) = get_summary( $this_PMID );
+
+	
+
+*************
+EXAMPLES
+*************
+sample.php
+Script that returns the total number of publications for a query, and detailed information for one of the results.
+
+trend.php
+You provide a query and year range. The script will provide back the number of publications broken down annually.
