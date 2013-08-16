@@ -36,7 +36,7 @@ if (isset($_GET['date_to'])) { $date_to = $_GET['date_to']; } else { $date_to = 
 
 
 #The query form
-echo '<form action="index.php" method="get">';
+echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="get">';
 	
 	#query
 	echo '<input name="query" size="100" value="';
